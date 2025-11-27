@@ -190,8 +190,8 @@ if __name__ == "__main__":
     model = load_model(config, device=device, mode="infer")
 
     # Build the input output pairs while preserving relative paths
-    all_paths = list(args.input_dir.rglob("*.wav"))
-    print(f"Found {len(all_paths):,} .wav files.")
+    all_paths = [p for ext in ("*.wav", "*.mp3") for p in args.input_dir.rglob(ext)]
+    print(f"Found {len(all_paths):,} audio files.")
     path_pairs = []
     for input_path in all_paths:
         output_path = (
